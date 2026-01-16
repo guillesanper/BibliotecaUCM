@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Personal - Biblioteca UCM</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Editar Personal</h1>
+
+        <nav class="mb-4">
+            <a href="/listado" class="btn btn-secondary">Volver al listado</a>
+        </nav>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <form action="/editar/<%= datos.id %>" method="POST" enctype="multipart/form-data">
+                            <!-- Nombre completo -->
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre completo (Nombre + Apellidos) *</label>
+                                <input type="text" class="form-control <%= errores.nombre ? 'is-invalid' : '' %>"
+                                       id="nombre" name="nombre" value="<%= datos.nombre || '' %>" required>
+                                <% if (errores.nombre) { %>
+                                    <div class="invalid-feedback"><%= errores.nombre.msg %></div>
+                                <% } %>
+                            </div>
+
+                            <!-- Correo electrónico -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Correo electrónico *</label>
+                                <input type="email" class="form-control <%= errores.email ? 'is-invalid' : '' %>"
+                                       id="email" name="email" value="<%= datos.email || '' %>"
+                                       placeholder="ejemplo@ucm.es" required>
+                                <% if (errores.email) { %>
+                                    <div class="invalid-feedback"><%= errores.email.msg %></div>
+                                <% } %>
+                                <small class="text-muted">Debe pertenecer al dominio @ucm.es</small>
+                            </div>
+
+                            <!-- Contraseña -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control <%= errores.password ? 'is-invalid' : '' %>"
+                                       id="password" name="password">
+                                <% if (errores.password) { %>
+                                    <div class="invalid-feedback"><%= errores.password.msg %></div>
+                                <% } %>
+                                <small class="text-muted">
+                                    Dejar vacío para mantener la contraseña actual. Si se modifica: 6-10 caracteres con mayúscula, minúscula, dígito y carácter especial.
+                                </small>
+                            </div>
+
+                            <!-- Turno -->
+                            <div class="mb-3">
+                                <label for="turno" class="form-label">Turno *</label>
+                                <select class="form-select <%= errores.turno ? 'is-invalid' : '' %>"
+                                        id="turno" name="turno" required>
+                                    <option value="">-- Seleccionar turno --</option>
+                                    <option value="mañana" <%= datos.turno === 'mañana' ? 'selected' : '' %>>Mañana</option>
+                                    <option value="tarde" <%= datos.turno === 'tarde' ? 'selected' : '' %>>Tarde</option>
+                                </select>
+                                <% if (errores.turno) { %>
+                                    <div class="invalid-feedback"><%= errores.turno.msg %></div>
+                                <% } %>
+                            </div>
+
+                            <!-- Imagen -->
+                            <div class="mb-3">
+                                <label for="imagen" class="form-label">Imagen asociada</label>
+                                <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
+                                <small class="text-muted">
+                                    Seleccione una nueva imagen para reemplazar la actual.
+                                    Puede usar imágenes de la carpeta /imagenes_cliente.
+                                </small>
+                            </div>
+
+                            <!-- Estado activo/inactivo -->
+                            <div class="mb-3">
+                                <label for="activo" class="form-label">Estado</label>
+                                <select class="form-select" id="activo" name="activo">
+                                    <option value="1" <%= datos.activo === 1 ? 'selected' : '' %>>Activo</option>
+                                    <option value="0" <%= datos.activo === 0 ? 'selected' : '' %>>Inactivo</option>
+                                </select>
+                            </div>
+
+                            <hr>
+
+                            <button type="submit" class="btn btn-warning">Guardar cambios</button>
+                            <a href="/listado" class="btn btn-outline-secondary">Cancelar</a>
+                        </form>
+                    </div>
+
+                    <!-- Imagen actual -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">Imagen actual</div>
+                            <div class="card-body text-center">
+                                <% if (datos.imagen && datos.imagen !== '') { %>
+                                    <img src="/imagenes/<%= datos.imagen %>" alt="<%= datos.nombre %>"
+                                         class="img-fluid rounded" style="max-height: 200px;"
+                                         onerror="this.onerror=null; this.src='/imagenes/noUser.png';">
+                                    <p class="mt-2 text-muted"><%= datos.imagen %></p>
+                                <% } else { %>
+                                    <img src="/imagenes/noUser.png" alt="Sin imagen"
+                                         class="img-fluid rounded" style="max-height: 200px;">
+                                    <p class="mt-2 text-muted">Sin imagen asignada</p>
+                                <% } %>
+                            </div>
+                        </div>
+
+                        <div class="card mt-3">
+                            <div class="card-header">Información</div>
+                            <div class="card-body">
+                                <p><strong>ID:</strong> <%= datos.id %></p>
+                                <p><strong>Estado:</strong>
+                                    <span class="badge <%= datos.activo === 1 ? 'bg-success' : 'bg-danger' %>">
+                                        <%= datos.activo === 1 ? 'Activo' : 'Inactivo' %>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

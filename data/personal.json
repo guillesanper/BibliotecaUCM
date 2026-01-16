@@ -1,0 +1,67 @@
+{
+  "personal": [
+    {
+      "id": 1,
+      "nombre": "Aitor Tilla",
+      "email": "aitor.tilla@ucm.es",
+      "turno": "mañana",
+      "imagen": "aitorTilla.png"
+    },
+    {
+      "id": 2,
+      "nombre": "Billy Puertas",
+      "email": "billy.puertas@ucm.es",
+      "turno": "tarde",
+      "imagen": "billyPuertas.png"
+    },
+    {
+      "id": 3,
+      "nombre": "Carmelo Cotón",
+      "email": "carmelo.coton@ucm.es",
+      "turno": "mañana",
+      "imagen": "carmeloCoton.png"
+    },
+    {
+      "id": 4,
+      "nombre": "Felipe Lotas",
+      "email": "felipe.lotas@ucm.es",
+      "turno": "tarde",
+      "imagen": "felipeLotas.png"
+    },
+    {
+      "id": 5,
+      "nombre": "Felipe Luquín",
+      "email": "felipe.luquin@ucm.es",
+      "turno": "mañana",
+      "imagen": "felipeLuquin.png"
+    },
+    {
+      "id": 6,
+      "nombre": "Ramón Aguillo",
+      "email": "ramon.aguillo@ucm.es",
+      "turno": "tarde",
+      "imagen": "ramonAguillo.png"
+    },
+    {
+      "id": 7,
+      "nombre": "Roman Tequilla",
+      "email": "roman.tequilla@ucm.es",
+      "turno": "mañana",
+      "imagen": "romanTequilla.png"
+    },
+    {
+      "id": 8,
+      "nombre": "Rubén Tosidad",
+      "email": "ruben.tosidad@ucm.es",
+      "turno": "tarde",
+      "imagen": "rubenTosidad.png"
+    },
+    {
+      "id": 9,
+      "nombre": "Steve Curros",
+      "email": "steve.curros@ucm.es",
+      "turno": "mañana",
+      "imagen": "steveCurros.png"
+    }
+  ]
+}

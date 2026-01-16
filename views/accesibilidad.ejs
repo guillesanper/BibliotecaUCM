@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opciones de Accesibilidad - Biblioteca UCM</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        /* Estilos dinámicos basados en las preferencias guardadas */
+        body {
+            background-color: <%= bgColor %> !important;
+            color: <%= textColor %> !important;
+            font-size: <%= fontSize %>px !important;
+        }
+        .form-label, .form-text, p, h1, h2, h3, h4, h5, h6, li, span {
+            color: <%= textColor %> !important;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        .card-header {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Opciones de Accesibilidad</h1>
+
+        <nav class="mb-4">
+            <a href="/listado" class="btn btn-secondary">Volver al listado</a>
+        </nav>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Personaliza tu experiencia visual</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="/accesibilidad" method="POST">
+                            <!-- Color de fondo -->
+                            <div class="mb-4">
+                                <label for="bgColor" class="form-label">Color de fondo:</label>
+                                <div class="input-group">
+                                    <input type="color" class="form-control form-control-color"
+                                           id="bgColor" name="bgColor" value="<%= bgColor %>">
+                                    <input type="text" class="form-control" value="<%= bgColor %>"
+                                           id="bgColorText" readonly>
+                                </div>
+                                <div class="mt-2">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                            onclick="setColor('bgColor', '#ffffff')">Blanco</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                            onclick="setColor('bgColor', '#f5f5dc')">Beige</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                            onclick="setColor('bgColor', '#e0e0e0')">Gris claro</button>
+                                    <button type="button" class="btn btn-sm btn-outline-dark"
+                                            onclick="setColor('bgColor', '#1a1a2e')">Oscuro</button>
+                                </div>
+                            </div>
+
+                            <!-- Color del texto -->
+                            <div class="mb-4">
+                                <label for="textColor" class="form-label">Color del texto:</label>
+                                <div class="input-group">
+                                    <input type="color" class="form-control form-control-color"
+                                           id="textColor" name="textColor" value="<%= textColor %>">
+                                    <input type="text" class="form-control" value="<%= textColor %>"
+                                           id="textColorText" readonly>
+                                </div>
+                                <div class="mt-2">
+                                    <button type="button" class="btn btn-sm btn-outline-dark"
+                                            onclick="setColor('textColor', '#000000')">Negro</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                            onclick="setColor('textColor', '#333333')">Gris oscuro</button>
+                                    <button type="button" class="btn btn-sm btn-outline-primary"
+                                            onclick="setColor('textColor', '#0066cc')">Azul</button>
+                                    <button type="button" class="btn btn-sm btn-outline-light text-dark"
+                                            onclick="setColor('textColor', '#ffffff')">Blanco</button>
+                                </div>
+                            </div>
+
+                            <!-- Tamaño del texto -->
+                            <div class="mb-4">
+                                <label for="fontSize" class="form-label">Tamaño del texto: <span id="fontSizeLabel"><%= fontSize %>px</span></label>
+                                <input type="range" class="form-range" id="fontSize" name="fontSize"
+                                       min="12" max="24" value="<%= fontSize %>"
+                                       oninput="document.getElementById('fontSizeLabel').textContent = this.value + 'px'">
+                                <div class="d-flex justify-content-between">
+                                    <small>12px</small>
+                                    <small>16px</small>
+                                    <small>20px</small>
+                                    <small>24px</small>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <button type="submit" class="btn btn-success btn-lg w-100">
+                                Guardar preferencias
+                            </button>
+                        </form>
+
+                        <hr>
+
+                        <form action="/accesibilidad" method="POST">
+                            <input type="hidden" name="bgColor" value="#ffffff">
+                            <input type="hidden" name="textColor" value="#000000">
+                            <input type="hidden" name="fontSize" value="16">
+                            <button type="submit" class="btn btn-outline-secondary w-100">
+                                Restablecer valores por defecto
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Vista previa</h5>
+                    </div>
+                    <div class="card-body" id="preview"
+                         style="background-color: <%= bgColor %>; color: <%= textColor %>; font-size: <%= fontSize %>px; min-height: 300px; padding: 20px;">
+                        <h2>Ejemplo de título</h2>
+                        <p>Este es un párrafo de ejemplo para que puedas ver cómo se aplicarán los cambios de accesibilidad a la página.</p>
+                        <ul>
+                            <li>Elemento de lista 1</li>
+                            <li>Elemento de lista 2</li>
+                            <li>Elemento de lista 3</li>
+                        </ul>
+                        <p><strong>Texto en negrita</strong> y <em>texto en cursiva</em>.</p>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5>Configuración actual</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Color de fondo:</strong> <%= bgColor %></p>
+                        <p><strong>Color de texto:</strong> <%= textColor %></p>
+                        <p><strong>Tamaño de texto:</strong> <%= fontSize %>px</p>
+                        <small class="text-muted">Las preferencias se guardan en cookies y se aplicarán automáticamente al acceder a esta página.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Función para establecer colores predefinidos
+        function setColor(inputId, color) {
+            document.getElementById(inputId).value = color;
+            document.getElementById(inputId + 'Text').value = color;
+        }
+
+        // Actualizar texto al cambiar color
+        document.getElementById('bgColor').addEventListener('input', function() {
+            document.getElementById('bgColorText').value = this.value;
+        });
+        document.getElementById('textColor').addEventListener('input', function() {
+            document.getElementById('textColorText').value = this.value;
+        });
+
+        // Vista previa en tiempo real
+        document.getElementById('bgColor').addEventListener('input', function() {
+            document.getElementById('preview').style.backgroundColor = this.value;
+        });
+        document.getElementById('textColor').addEventListener('input', function() {
+            document.getElementById('preview').style.color = this.value;
+        });
+        document.getElementById('fontSize').addEventListener('input', function() {
+            document.getElementById('preview').style.fontSize = this.value + 'px';
+        });
+    </script>
+</body>
+</html>

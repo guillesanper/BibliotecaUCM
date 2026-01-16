@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta de Personal - Biblioteca UCM</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Alta de Nuevo Personal</h1>
+
+        <nav class="mb-4">
+            <a href="/listado" class="btn btn-secondary">Volver al listado</a>
+        </nav>
+
+        <div class="card">
+            <div class="card-body">
+                <form action="/alta" method="POST" enctype="multipart/form-data">
+                    <!-- Nombre completo -->
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre completo (Nombre + Apellidos) *</label>
+                        <input type="text" class="form-control <%= errores.nombre ? 'is-invalid' : '' %>"
+                               id="nombre" name="nombre" value="<%= datos.nombre || '' %>" required>
+                        <% if (errores.nombre) { %>
+                            <div class="invalid-feedback"><%= errores.nombre.msg %></div>
+                        <% } %>
+                    </div>
+
+                    <!-- Correo electrónico -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo electrónico *</label>
+                        <input type="email" class="form-control <%= errores.email ? 'is-invalid' : '' %>"
+                               id="email" name="email" value="<%= datos.email || '' %>"
+                               placeholder="ejemplo@ucm.es" required>
+                        <% if (errores.email) { %>
+                            <div class="invalid-feedback"><%= errores.email.msg  %></div>
+                        <% } %>
+                        <small class="text-muted">Debe pertenecer al dominio @ucm.es</small>
+                    </div>
+
+                    <!-- Contraseña -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña *</label>
+                        <input type="password" class="form-control <%= errores.password ? 'is-invalid' : '' %>"
+                               id="password" name="password" required>
+                        <% if (errores.password) { %>
+                            <div class="invalid-feedback"><%= errores.password.msg %></div>
+                        <% } %>
+                        <small class="text-muted">
+                            Entre 6 y 10 caracteres. Debe incluir: mayúscula, minúscula, dígito y carácter especial.
+                        </small>
+                    </div>
+
+                    <!-- Turno -->
+                    <div class="mb-3">
+                        <label for="turno" class="form-label">Turno *</label>
+                        <select class="form-select <%= errores.turno ? 'is-invalid' : '' %>"
+                                id="turno" name="turno" required>
+                            <option value="">-- Seleccionar turno --</option>
+                            <option value="mañana" <%= datos.turno === 'mañana' ? 'selected' : '' %>>Mañana</option>
+                            <option value="tarde" <%= datos.turno === 'tarde' ? 'selected' : '' %>>Tarde</option>
+                        </select>
+                        <% if (errores.turno) { %>
+                            <div class="invalid-feedback"><%= errores.turno.msg %></div>
+                        <% } %>
+                    </div>
+
+                    <!-- Imagen -->
+                    <div class="mb-3">
+                        <label for="imagen" class="form-label">Imagen asociada</label>
+                        <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
+                        <small class="text-muted">Opcional. Si no se selecciona, se mostrará imagen por defecto.</small>
+                    </div>
+
+                    <hr>
+
+                    <button type="submit" class="btn btn-success">Dar de alta</button>
+                    <a href="/listado" class="btn btn-outline-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
