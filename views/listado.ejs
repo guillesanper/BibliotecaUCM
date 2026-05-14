@@ -28,7 +28,7 @@
                     <div class="col-md-4">
                         <form action="/listado" method="GET">
                             <label for="turno" class="form-label">Filtrar por turno:</label>
-                            <select name="t urno" id="turno" class="form-select" onchange="this.form.submit()">
+                            <select name="turno" id="turno" class="form-select" onchange="this.form.submit()">
                                 <option value="">-- Todos --</option>
                                 <option value="mañana" <%= turnoSeleccionado === 'mañana' ? 'selected' : '' %>>Mañana</option>
                                 <option value="tarde" <%= turnoSeleccionado === 'tarde' ? 'selected' : '' %>>Tarde</option>
@@ -66,47 +66,37 @@
         <% if (personal.length === 0) { %>
             <div class="alert alert-warning">No se encontraron resultados.</div>
         <% } else { %>
-            <table class="table table-striped table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Imagen</th>
-                        <th>Nombre Completo</th>
-                        <th>Correo Electrónico</th>
-                        <th>Turno</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% personal.forEach(function(p) { %>
-                        <tr>
-                            <td><%= p.id %></td>
-                            <td>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <% personal.forEach(function(p) { %>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body text-center">
                                 <% if (p.imagen && p.imagen !== '') { %>
                                     <img src="/imagenes/<%= p.imagen %>" alt="<%= p.nombre %>"
-                                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;"
+                                         class="rounded-circle mb-3"
+                                         style="width: 80px; height: 80px; object-fit: cover;"
                                          onerror="this.onerror=null; this.src='/imagenes/noUser.png';">
                                 <% } else { %>
                                     <img src="/imagenes/noUser.png" alt="Sin imagen"
-                                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                                         class="rounded-circle mb-3"
+                                         style="width: 80px; height: 80px; object-fit: cover;">
                                 <% } %>
-                            </td>
-                            <td><%= p.nombre %></td>
-                            <td><%= p.email %></td>
-                            <td>
+                                <h5 class="card-title mb-1"><%= p.nombre %></h5>
+                                <p class="card-text text-muted small mb-1"><%= p.email %></p>
+                                <p class="card-text text-muted small mb-2">#<%= p.id %></p>
                                 <span class="badge <%= p.turno === 'mañana' ? 'bg-warning text-dark' : 'bg-primary' %>">
                                     <%= p.turno %>
                                 </span>
-                            </td>
-                            <td>
+                            </div>
+                            <div class="card-footer d-flex justify-content-center gap-2">
                                 <a href="/editar/<%= p.id %>" class="btn btn-sm btn-warning">Editar</a>
                                 <a href="/eliminar/<%= p.id %>" class="btn btn-sm btn-danger"
                                    onclick="return confirm('¿Estás seguro de eliminar a <%= p.nombre %>?')">Eliminar</a>
-                            </td>
-                        </tr>
-                    <% }); %>
-                </tbody>
-            </table>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
         <% } %>
 
         <p class="text-muted">Total de registros mostrados: <%= personal.length %></p>

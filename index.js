@@ -30,6 +30,8 @@ app.set('view engine', 'ejs');
      CARGA INICIAL DE DATOS (JSON)
    ====================== */
 const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'personal.json'), 'utf-8'));
+//tambien se puede con
+//const data = require("./data/personal.json")
 
 // Añadir campo 'activo' a cada persona (para eliminación lógica)
 data.personal.forEach(p => {
